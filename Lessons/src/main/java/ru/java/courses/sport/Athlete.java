@@ -1,48 +1,64 @@
 package ru.java.courses.sport;
 
-public class Athlete {
+/**
+ * Created by Варвара on 27.06.2018.
+ */
+public class Athlete extends Person{
 
-    private String name;
+    private SportTitle title = SportTitle.NO_TITLE;
+    private int salary;
 
-    private int pesonalNumber;
-
-    private boolean active;
-
-    public Athlete(String name) {
-        if (name == null || name.isEmpty()) {
-            throw new IllegalArgumentException("У спортсмена всегда должно быть имя!");
-        }
-        this.name = name;
-
-        this.active = true;
+    public Athlete(String name, int age) {
+        super(name, age);
     }
 
-    public String getName() {
-        return name;
+    public Athlete(String name, int age, String name1, SportTitle title, int salary) {
+        super(name, age);
+        this.title = title;
+        this.salary = salary;
     }
 
-    public final void setName(String newName) {
-        if (newName == null || newName.isEmpty()) {
-            throw new IllegalArgumentException("У спортсмена всегда должно быть имя!");
-        }
-
-        this.name = newName;
+    public SportTitle getTitle() {
+        return title;
     }
 
-    public int getPesonalNumber() {
-        return pesonalNumber;
+    public void setTitle(SportTitle title) {
+        this.title = title;
     }
 
-    public void setPesonalNumber(int pesonalNumber) {
-        this.pesonalNumber = pesonalNumber;
+    public int getSalary() {
+        return salary;
     }
 
-    public boolean isActive() {
-        return active;
+    public void setSalary(int salary) {
+        this.salary = salary;
     }
 
-    public void setActive(boolean active) {
-        this.active = active;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+
+        Athlete athlete = (Athlete) o;
+
+        if (salary != athlete.salary) return false;
+        return title == athlete.title;
     }
 
+    @Override
+    public int hashCode() {
+        int result = super.hashCode();
+        result = 31 * result + (title != null ? title.hashCode() : 0);
+        result = 31 * result + salary;
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        return "Athlete{" +
+                "title=" + title +
+                ", salary=" + salary +
+                "} " + super.toString();
+    }
 }

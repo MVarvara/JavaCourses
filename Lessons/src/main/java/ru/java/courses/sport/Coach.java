@@ -1,32 +1,36 @@
 package ru.java.courses.sport;
 
-public class Coach {
+/**
+ * Created by Варвара on 27.06.2018.
+ */
+public class Coach extends Person{
+    private int experience = 0;
 
-    private String name;
-
-    /**
-     * Стаж в годах
-     */
-    private int experience;
-
-    public Coach(String name) {
-        if (name == null || name.isEmpty()) {
-            throw new IllegalArgumentException("У спортсмена всегда должно быть имя!");
-        }
-        this.name = name;
+    public Coach(String name, int age) {
+        super(name, age);
     }
 
-    public Coach(String name, int experience) {
-        this(name);
+    public Coach(String name, int age, int experience) {
+        super(name, age);
         this.experience = experience;
     }
 
-    public String getName() {
-        return name;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+
+        Coach coach = (Coach) o;
+
+        return experience == coach.experience;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    @Override
+    public int hashCode() {
+        int result = super.hashCode();
+        result = 31 * result + experience;
+        return result;
     }
 
     public int getExperience() {
@@ -35,5 +39,12 @@ public class Coach {
 
     public void setExperience(int experience) {
         this.experience = experience;
+    }
+
+    @Override
+    public String toString() {
+        return "Coach{" +
+                "experience=" + experience +
+                "} " + super.toString();
     }
 }
